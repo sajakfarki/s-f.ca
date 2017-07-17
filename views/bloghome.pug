@@ -1,0 +1,59 @@
+extends ./layout.pug
+
+block title
+	title !{bloghome.getText("bloghome.headline")}
+
+block body
+	body(id="home" class="🍕 animated fadeIn")
+	
+	header.header
+		a(href='index.html')
+			figure.header__img
+				img(src="/images/punch.png" alt="Cartwheel Logo")
+		nav
+			ul.header__list
+				li 
+					| <a data-scroll href="#about">About</a>
+				li 
+					| <a data-scroll href="#about">Case Studies</a>
+				li 
+					| <a data-scroll href="#about">Contact</a>
+	main(role="main")
+		section.mast
+			header.mast__header
+				h1 !{bloghome.getText('bloghome.headline')}
+				span !{bloghome.getText('bloghome.description')}
+				
+				- var imageUrl = bloghome.getImage('bloghome.image').url
+
+			div(class="mast__img bg-grey")
+				div(class="absolute-bg" style="background-image: url('" + imageUrl + "');")
+			div(class="mast__img bg-alpha")
+				div(class="absolute-bg" style="background-image: url('/assets/images/mast-right.jpg');")
+	
+	section(id="about" class="section-padding bg-grey")
+		div.grid
+			h1.section-header About
+			div.about
+				p(class="about__text wow fadeInUp" data-wow-delay="300ms") !{bloghome.getText('bloghome.description')}
+			div(id="instafetch" class="container-triple")
+				
+	for post in posts
+		section(id="portfolio" class="section-padding bg-alpha")
+			div.grid--double
+				h1.section-header 
+					!= post.getText('post.title') || 'Untitled'
+				div(class="portfolio-carousel owl-carousel wow fadeIn")
+					div
+						figure
+							img(src="/assets/images/portfolio-1.png" alt="Portfolio Item")
+					div
+						figure
+							img(src="/assets/images/portfolio-1.png" alt="Portfolio Item")
+					div
+						figure
+							img(src="/assets/images/portfolio-1.png" alt="Portfolio Item")
+	
+	script(type="text/javascript" src="/assets/js/jquery.min.js")
+	script(type="text/javascript" src="/assets/js/app.min.js")
+	

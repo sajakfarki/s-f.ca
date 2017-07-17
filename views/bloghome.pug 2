@@ -1,0 +1,63 @@
+extends ./layout.pug
+
+block title
+  title !{bloghome.getText("bloghome.headline")}
+
+block body
+  body(id="home" class="🍕 animated fadeIn")
+    - var image = bloghome.getImage('bloghome.image')
+    - var maybeBloghomeImageUrl = image ? image.getView("main").url : ''
+    - var illustrationUrl = maybeBloghomeImageUrl || ''
+
+    div.home
+      div.blog-avatar(style='background-image: url(' + illustrationUrl + ');')
+      h1.blog-title !{bloghome.getStructuredText('bloghome.headline').asHtml()}
+      p.blog-description !{bloghome.getText('bloghome.description')}
+    div.blog-main
+      for post in posts
+        div.blog-post(data-wio-id=post.id)
+          h2
+            a(href=ctx.linkResolver(post))
+              != post.getText('post.title') || 'Untitled'
+          p.blog-post-meta
+            - var date = post.getDate("post.date");
+            - var displayDate = date ? date.toLocaleDateString("en-us", {month: "short", day:"numeric", year:"numeric"}) : ""
+            span.created-at !{displayDate}
+          //- display first valid slice text and limit it respecting the end of words.
+          - var firstParagraph = post.getFirstParagraph()
+          - var firstParagraphInPost = firstParagraph ? firstParagraph.text : ''
+          - var textLimit = 300
+          - var limitedText = firstParagraphInPost.substr(0, textLimit)
+          if firstParagraphInPost.length > textLimit
+            = limitedText.substr(0, limitedText.lastIndexOf(' ')) + '...'
+          else
+            = firstParagraphInPost
+            
+    header.header
+    a(href='index.html')
+        figure.header__img
+            img(src="/images/punch.png" alt="Cartwheel Logo")
+    nav
+        ul.header__list
+            li
+                | <a data-scroll href="#about">About</a>
+            li
+                | <a data-scroll href="#about">About</a>
+            li
+                | <a data-scroll href="#about">About</a>
+    main(role="main")
+        section.mast
+            header.mast__header
+                h1 Holly Gibney
+                span Freelance Designer and Photographer
+            div(class="mast__img bg-grey")
+                div(class="absolute-bg" style="background-image: url('/assets/images/mast-left.jpg');")
+            div(class="mast__img bg-alpha")
+                div(class="absolute-bg" style="background-image: url('/assets/images/mast-right.jpg');")
+                
+    
+    script(type="text/javascript" src="/assets/js/jquery.min.js")
+    script(type="text/javascript" src="/assets/js/app.min.js")
+    
+    script(type="text/javascript")
+        | if ($('body').attr('id') === 'home') {instafetch.init({accessToken: '3980752.1677ed0.62bb6a2ad3ef4dc0a6aad768ab8939ab',caption: true});}
