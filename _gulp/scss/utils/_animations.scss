@@ -1,0 +1,35 @@
+/**
+ * Animations
+ */
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+@keyframes fadeInUp {
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+}
+
+@keyframes fadeInDown {
+}
+
+.fadeInDown {
+  animation-name: fadeInDown;
+}
+
+@keyframes slideInUp {
+}
+
+.slideInUp {
+  animation-name: slideInUp;
+}
